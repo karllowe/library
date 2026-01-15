@@ -12,8 +12,6 @@ function Book(title, author, pageNumber) {
 
 function addBookToLibrary(title, author, pageNumber) {
     const newBook = new Book(title, author, pageNumber);
-    myLibrary.push(newBook);
-
     const bookShelf = document.querySelector(".bookShelf");
     const div = document.createElement("div");
     const bookTitle = document.createElement("h3");
@@ -38,6 +36,7 @@ function addBookToLibrary(title, author, pageNumber) {
     div.appendChild(uid);
 
     bookShelf.appendChild(div);
+    myLibrary.push(newBook);
 };
 
 addBookToLibrary("The Hobbit", "J.R.R. Tolken", 1000);
@@ -67,5 +66,6 @@ submitButton.addEventListener("click", (e) => {
     const pages = formData.get("pages")
 
     addBookToLibrary(title, author, pages);
-    newBookWindow.close()
+    newBookWindow.close();
+    form.reset()
 });
