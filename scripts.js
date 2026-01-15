@@ -43,8 +43,7 @@ function addBookToLibrary(title, author, pageNumber, read) {
     delButton.textContent = "Delete";
 
     const readButton = document.createElement("button");
-    readButton.classList.add("readButton");
-    readButton.textContent = "Mark read";
+    readButton.textContent = "Toggle read";
 
     div.appendChild(bookTitle);
     div.appendChild(bookAuthor);
@@ -111,7 +110,6 @@ readButton.forEach((item) => {
         const index = myLibrary.findIndex((item) => item.id==bookId);
         const bookItm = myLibrary[index];
         bookItm.toggleRead();
-        console.log(myLibrary)
     })
 });
 
