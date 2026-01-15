@@ -1,17 +1,22 @@
 const myLibrary = [];
 
-function Book(title, author, pageNumber) {
+function Book(title, author, pageNumber, read) {
     if (!new.target) {
         throw Error("Use the 'new' operator!")
-    }
+    };
     this.title=title;
     this.author=author;
     this.pageNumber=pageNumber;
     this.id = crypto.randomUUID();
+    this.read = read;
 };
 
-function addBookToLibrary(title, author, pageNumber) {
-    const newBook = new Book(title, author, pageNumber);
+Book.prototype.toggleRead = function() {
+    this.read = !this.read;
+};
+
+function addBookToLibrary(title, author, pageNumber, read) {
+    const newBook = new Book(title, author, pageNumber, read);
     const bookShelf = document.querySelector(".bookShelf");
 
     const div = document.createElement("div");
@@ -37,11 +42,16 @@ function addBookToLibrary(title, author, pageNumber) {
     delButton.classList.add("delButton");
     delButton.textContent = "Delete";
 
+    const readButton = document.createElement("button");
+    readButton.classList.add("readButton");
+    readButton.textContent = "Mark read";
+
     div.appendChild(bookTitle);
     div.appendChild(bookAuthor);
     div.appendChild(pageCount);
     div.appendChild(uid);
     div.appendChild(delButton);
+    div.appendChild(readButton);
 
     bookShelf.appendChild(div);
     myLibrary.push(newBook);
@@ -52,7 +62,7 @@ function deleteBook(idLookUp) {
     myLibrary.splice(index,1);
 
     const divToRemove = document.querySelectorAll(`[data-uid="${idLookUp}"]`)[0];
-    divToRemove.remove()
+    divToRemove.remove();
 };
 
 addBookToLibrary("The Hobbit", "J.R.R. Tolken", 1000);
@@ -65,6 +75,7 @@ const showButton = document.querySelector("#newBook");
 const closeWindow = document.querySelector("#close");
 const submitButton = document.querySelector("#submitButton");
 const delButton = document.querySelectorAll(".delButton");
+const readButton = document.querySelectorAll(".readButton");
 
 showButton.addEventListener("click", () => {
     newBookWindow.showModal()
@@ -94,4 +105,13 @@ delButton.forEach((item) => {
     })
 });
 
-console.log(myLibrary)
+readButton.forEach((item) => {
+    item.addEventListener("click", (e) => {
+        const bookId = e.target.parentElement.dataset.uid;
+        const index = myLibrary.findIndex((item) => item.id==bookId);
+        const bookItm = myLibrary[index];
+        bookItm.toggleRead();
+        console.log(myLibrary)
+    })
+});
+
