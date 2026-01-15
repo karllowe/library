@@ -15,8 +15,24 @@ function addBookToLibrary(title, author, pageNumber) {
     myLibrary.push(newBook);
 }
 
-addBookToLibrary("the hobbit", "Tolken", 213);
+const bookShelf = document.querySelector(".bookShelf");
+const div = document.createElement("div");
+    const bookTitle = document.createElement("h3");
+    bookTitle.textContent = "new Book";
+    bookTitle.classList.add("bookTitle")
+    
+    const bookAuthor = document.createElement("p");
+    bookAuthor.textContent = "Test author";
+    bookTitle.classList.add("author")
+    
+    const pageCount = document.createElement("p");
+    pageCount.textContent = 123;
+    bookTitle.classList.add("pageCount")
 
-addBookToLibrary("the shinning", "King", 3445);
+    div.appendChild(bookTitle);
+    div.appendChild(bookAuthor);
+    div.appendChild(pageCount);
 
-console.log(myLibrary[1])
+
+
+bookShelf.appendChild(div);
