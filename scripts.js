@@ -7,16 +7,19 @@ function Book(title, author, pageNumber) {
     this.title=title;
     this.author=author;
     this.pageNumber=pageNumber;
-    this.id = crypto.randomUUID()
+    this.id = crypto.randomUUID();
 };
 
 function addBookToLibrary(title, author, pageNumber) {
     const newBook = new Book(title, author, pageNumber);
     const bookShelf = document.querySelector(".bookShelf");
+
     const div = document.createElement("div");
+    div.setAttribute("data-uid",newBook.id);
+
     const bookTitle = document.createElement("h3");
     bookTitle.textContent = newBook.title;
-    bookTitle.classList.add("bookTitle")
+    bookTitle.classList.add("bookTitle");
     
     const bookAuthor = document.createElement("p");
     bookAuthor.textContent = `by ${newBook.author}`;
@@ -30,24 +33,38 @@ function addBookToLibrary(title, author, pageNumber) {
     uid.textContent = `UUID: ${newBook.id}`;
     uid.classList.add("id");
 
+    const delButton = document.createElement("button");
+    delButton.classList.add("delButton");
+    delButton.textContent = "Delete";
+
     div.appendChild(bookTitle);
     div.appendChild(bookAuthor);
     div.appendChild(pageCount);
     div.appendChild(uid);
+    div.appendChild(delButton);
 
     bookShelf.appendChild(div);
     myLibrary.push(newBook);
 };
 
+function deleteBook(idLookUp) {
+    const index = myLibrary.findIndex((item) => item.id==idLookUp);
+    myLibrary.splice(index,1);
+
+    const divToRemove = document.querySelectorAll(`[data-uid="${idLookUp}"]`)[0];
+    divToRemove.remove()
+};
+
 addBookToLibrary("The Hobbit", "J.R.R. Tolken", 1000);
 addBookToLibrary("The Lord of the Rings", "J.R.R. Tolken", 2000);
 addBookToLibrary("The Shinning", "Stephen King", 800);
-addBookToLibrary("IT", "Stephen King", 999)
+addBookToLibrary("IT", "Stephen King", 999);
 
 const newBookWindow = document.querySelector("dialog");
 const showButton = document.querySelector("#newBook");
 const closeWindow = document.querySelector("#close");
-const submitButton = document.querySelector("#submitButton")
+const submitButton = document.querySelector("#submitButton");
+const delButton = document.querySelectorAll(".delButton");
 
 showButton.addEventListener("click", () => {
     newBookWindow.showModal()
@@ -63,9 +80,18 @@ submitButton.addEventListener("click", (e) => {
     const formData = new FormData(form);
     const author = formData.get("author");
     const title = formData.get("book_title");
-    const pages = formData.get("pages")
+    const pages = formData.get("pages");
 
     addBookToLibrary(title, author, pages);
     newBookWindow.close();
-    form.reset()
+    form.reset();
 });
+
+delButton.forEach((item) => {
+    item.addEventListener("click", (e) => {
+        const bookId = e.target.parentElement.dataset.uid;
+        deleteBook(bookId);
+    })
+});
+
+console.log(myLibrary)
