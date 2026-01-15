@@ -67,4 +67,5 @@ submitButton.addEventListener("click", (e) => {
     const pages = formData.get("pages")
 
     addBookToLibrary(title, author, pages);
+    newBookWindow.close()
 });
