@@ -13,26 +13,33 @@ function Book(title, author, pageNumber) {
 function addBookToLibrary(title, author, pageNumber) {
     const newBook = new Book(title, author, pageNumber);
     myLibrary.push(newBook);
-}
+};
 
-const bookShelf = document.querySelector(".bookShelf");
-const div = document.createElement("div");
+addBookToLibrary("The Hobbit", "J.R.R. Tolken", 1000);
+addBookToLibrary("The Lord of the Rings", "J.R.R. Tolken", 2000);
+addBookToLibrary("The Shinning", "Stephen King", 800);
+addBookToLibrary("IT", "Stephen King", 999)
+
+
+myLibrary.forEach((item) => {
+    const bookShelf = document.querySelector(".bookShelf");
+    const div = document.createElement("div");
     const bookTitle = document.createElement("h3");
-    bookTitle.textContent = "new Book";
+    bookTitle.textContent = item.title;
     bookTitle.classList.add("bookTitle")
     
     const bookAuthor = document.createElement("p");
-    bookAuthor.textContent = "Test author";
+    bookAuthor.textContent = item.author;
     bookTitle.classList.add("author")
     
     const pageCount = document.createElement("p");
-    pageCount.textContent = 123;
+    pageCount.textContent = item.pageNumber;
     bookTitle.classList.add("pageCount")
 
     div.appendChild(bookTitle);
     div.appendChild(bookAuthor);
     div.appendChild(pageCount);
 
-
-
-bookShelf.appendChild(div);
+    bookShelf.appendChild(div);
+    }
+);
