@@ -20,26 +20,29 @@ addBookToLibrary("The Lord of the Rings", "J.R.R. Tolken", 2000);
 addBookToLibrary("The Shinning", "Stephen King", 800);
 addBookToLibrary("IT", "Stephen King", 999)
 
+function createBookDiv (array) {
+    array.forEach((item) => {
+        const bookShelf = document.querySelector(".bookShelf");
+        const div = document.createElement("div");
+        const bookTitle = document.createElement("h3");
+        bookTitle.textContent = item.title;
+        bookTitle.classList.add("bookTitle")
+        
+        const bookAuthor = document.createElement("p");
+        bookAuthor.textContent = item.author;
+        bookTitle.classList.add("author")
+        
+        const pageCount = document.createElement("p");
+        pageCount.textContent = item.pageNumber;
+        bookTitle.classList.add("pageCount")
 
-myLibrary.forEach((item) => {
-    const bookShelf = document.querySelector(".bookShelf");
-    const div = document.createElement("div");
-    const bookTitle = document.createElement("h3");
-    bookTitle.textContent = item.title;
-    bookTitle.classList.add("bookTitle")
-    
-    const bookAuthor = document.createElement("p");
-    bookAuthor.textContent = item.author;
-    bookTitle.classList.add("author")
-    
-    const pageCount = document.createElement("p");
-    pageCount.textContent = item.pageNumber;
-    bookTitle.classList.add("pageCount")
+        div.appendChild(bookTitle);
+        div.appendChild(bookAuthor);
+        div.appendChild(pageCount);
 
-    div.appendChild(bookTitle);
-    div.appendChild(bookAuthor);
-    div.appendChild(pageCount);
+        bookShelf.appendChild(div);
+        }
+    )
+};
 
-    bookShelf.appendChild(div);
-    }
-);
+createBookDiv(myLibrary)
