@@ -29,18 +29,24 @@ function createBookDiv (array) {
         bookTitle.classList.add("bookTitle")
         
         const bookAuthor = document.createElement("p");
-        bookAuthor.textContent = item.author;
+        bookAuthor.textContent = `by ${item.author}`;
         bookTitle.classList.add("author")
         
         const pageCount = document.createElement("p");
-        pageCount.textContent = item.pageNumber;
+        pageCount.textContent = `${item.pageNumber} pages`;
         bookTitle.classList.add("pageCount")
+
+        const uid = document.createElement("p");
+        uid.textContent = `UUID: ${item.id}`;
+        uid.classList.add("id");
 
         div.appendChild(bookTitle);
         div.appendChild(bookAuthor);
         div.appendChild(pageCount);
+        div.appendChild(uid);
 
         bookShelf.appendChild(div);
+        
         }
     )
 };
