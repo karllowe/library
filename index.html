@@ -12,6 +12,22 @@
         <h1>Welcome to our library!</h1>
         <h2>We currently have the following books</h2>
     </div>
+    <div class="toolbar">
+        <button id="newBook">New Book</button>
+    </div>
+    <dialog class="newBookModal">
+        <button id="close">x</button>
+        <h4>Create new book:</h4>
+        <form action="" id="myForm">
+            <label for="bookTitle">Title:</label>
+            <input type="text" id="bookTitle" name="book_title">
+            <label for="author">Author:</label>
+            <input type="text" id="author" name="author">
+            <label for="pages">Page count:</label>
+            <input type="number" id="pages">
+            <button type="submit" id="submitButton" name="pages">Submit</button>
+        </form>
+    </dialog>
     <div class="bookShelf">
     </div>
 </body>

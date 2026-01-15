@@ -46,9 +46,35 @@ function createBookDiv (array) {
         div.appendChild(uid);
 
         bookShelf.appendChild(div);
-        
+
         }
     )
 };
 
-createBookDiv(myLibrary)
+createBookDiv(myLibrary);
+
+const newBookWindow = document.querySelector("dialog");
+const showButton = document.querySelector("#newBook");
+const closeWindow = document.querySelector("#close");
+const submitButton = document.querySelector("#submitButton")
+
+showButton.addEventListener("click", () => {
+    newBookWindow.showModal()
+});
+
+closeWindow.addEventListener("click", () => {
+    newBookWindow.close()
+});
+
+submitButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    const form = e.currentTarget.form;
+    const formData = new FormData(form);
+    const author = formData.get("author");
+    const title = formData.get("book_title");
+    const pages = formData.get("pages")
+
+    addBookToLibrary(title, author, pages);
+    createBookDiv(myLibrary);
+
+});
