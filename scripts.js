@@ -1,19 +1,33 @@
 const myLibrary = [];
 
-function Book(title, author, pageNumber, read) {
-    if (!new.target) {
-        throw Error("Use the 'new' operator!")
-    };
-    this.title=title;
-    this.author=author;
-    this.pageNumber=pageNumber;
-    this.id = crypto.randomUUID();
-    this.read = read;
-};
+// function Book(title, author, pageNumber, read) {
+//     if (!new.target) {
+//         throw Error("Use the 'new' operator!")
+//     };
+//     this.title=title;
+//     this.author=author;
+//     this.pageNumber=pageNumber;
+//     this.id = crypto.randomUUID();
+//     this.read = read;
+// };
 
-Book.prototype.toggleRead = function() {
-    this.read = !this.read;
-};
+class Book {
+    constructor(title, author, pageNumber, read) {
+        this.title = title;
+        this.author = author;
+        this.pageNumber = pageNumber;
+        this.read = read;
+        this.id = crypto.randomUUID()
+    }
+
+    toggleRead() {
+        this.read = !this.read
+    }
+}
+
+// Book.prototype.toggleRead = function() {
+//     this.read = !this.read;
+// };
 
 function addBookToLibrary(title, author, pageNumber, read) {
     const newBook = new Book(title, author, pageNumber, read);
@@ -43,7 +57,12 @@ function addBookToLibrary(title, author, pageNumber, read) {
     delButton.textContent = "Delete";
 
     const readButton = document.createElement("button");
+    readButton.classList.add("readButton");
     readButton.textContent = "Toggle read";
+
+    const readText = document.createElement("p");
+    readText.classList.add("readText");
+    readText.textContent = "Not read";
 
     div.appendChild(bookTitle);
     div.appendChild(bookAuthor);
@@ -51,6 +70,7 @@ function addBookToLibrary(title, author, pageNumber, read) {
     div.appendChild(uid);
     div.appendChild(delButton);
     div.appendChild(readButton);
+    div.appendChild(readText)
 
     bookShelf.appendChild(div);
     myLibrary.push(newBook);
@@ -110,6 +130,15 @@ readButton.forEach((item) => {
         const index = myLibrary.findIndex((item) => item.id==bookId);
         const bookItm = myLibrary[index];
         bookItm.toggleRead();
+
+        const divElement = document.querySelectorAll(`[data-uid="${bookId}"]`)[0];        
+        const readElement = divElement.querySelector(".readText");
+
+        if (bookItm.read == true) {
+            readElement.textContent = "Read"
+        } else {
+            readElement.textContent = "Not read"
+        }
     })
 });
 
