@@ -1,16 +1,5 @@
 const myLibrary = [];
 
-// function Book(title, author, pageNumber, read) {
-//     if (!new.target) {
-//         throw Error("Use the 'new' operator!")
-//     };
-//     this.title=title;
-//     this.author=author;
-//     this.pageNumber=pageNumber;
-//     this.id = crypto.randomUUID();
-//     this.read = read;
-// };
-
 class Book {
     constructor(title, author, pageNumber, read) {
         this.title = title;
@@ -24,10 +13,6 @@ class Book {
         this.read = !this.read
     }
 }
-
-// Book.prototype.toggleRead = function() {
-//     this.read = !this.read;
-// };
 
 function addBookToLibrary(title, author, pageNumber, read) {
     const newBook = new Book(title, author, pageNumber, read);
