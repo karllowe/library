@@ -96,10 +96,36 @@ submitButton.addEventListener("click", (e) => {
     const author = formData.get("author");
     const title = formData.get("book_title");
     const pages = formData.get("pages");
+    
+    
+    
+    
 
-    addBookToLibrary(title, author, pages);
-    newBookWindow.close();
-    form.reset();
+    titleElement = document.getElementById("bookTitle");
+    titleElement.setCustomValidity("");
+    if (!titleElement.validity.valid) {
+        titleElement.setCustomValidity("The title must be filled")
+    };
+
+    authorElement = document.getElementById("author");
+    authorElement.setCustomValidity("");
+    if (!authorElement.validity.valid) {
+        authorElement.setCustomValidity("The author must be filled")
+    };
+
+
+    pagesElement = document.getElementById("pages");
+    pagesElement.setCustomValidity("");
+    if (!pagesElement.validity.valid) {
+        pagesElement.setCustomValidity("The page count must be added")
+    };
+
+
+    if (form.reportValidity()) {
+        addBookToLibrary(title, author, pages);
+        newBookWindow.close();
+        form.reset();
+    } 
 });
 
 delButton.forEach((item) => {

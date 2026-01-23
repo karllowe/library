@@ -68,3 +68,7 @@ body {
 .bookShelf div .bookTitle {
     font-weight: bold;
 }
+
+input:invalid {
+    background-color: lightsalmon;
+}
